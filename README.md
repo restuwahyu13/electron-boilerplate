@@ -4,5 +4,5 @@ Berikut adalah Electron React Boilerplate yang sudah siap pakai untuk Production
 
 # Run Application
 
-Development Mode - npm run electron:dev
-Production Build - npm run electron:build
+- Development Mode - npm run electron:dev
+- Production Build - npm run electron:build
