@@ -1,6 +1,6 @@
 # Minimalize Electron React Boilerplate
 
-Berikut adalah Electron React Boilerplate yang sudah siap pakai untuk Production atau Development, boilerplate ini saya pakai sendiri diproject freelance yang sedang saya kerjakan sekarang ini.
+Berikut adalah Electron React Boilerplate yang bisa anda gunakan baik untuk Production atau Development, boilerplate ini juga saya pakai sendiri di project freelance yang sedang saya kerjakan sekarang ini untuk membuat desktop application.
 
 # Run Application
 
