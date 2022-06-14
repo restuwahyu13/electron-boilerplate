@@ -6,3 +6,5 @@ Berikut adalah Electron React Boilerplate yang sudah siap pakai untuk Production
 
 - Development Mode - npm run electron:dev
 - Production Build - npm run electron:build
+
+![](https://i.imgur.com/NlAqlbW.png)
