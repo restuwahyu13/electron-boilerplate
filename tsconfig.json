@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"target": "ESNext",
+		"module": "ESNext",
+		"moduleResolution": "Node",
+		"jsx": "preserve",
+		"lib": ["DOM", "DOM.Iterable", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021", "ES2022", "ESNExt"],
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"sourceMap": true,
+		"noEmit": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"noUnusedParameters": false,
+		"noUnusedLocals": false,
+		"noImplicitAny": false,
+		"noImplicitReturns": false,
+		"alwaysStrict": false
+	},
+	"include": ["src/renderer/**/*.{tsx,ts}", "src/**/*.tsx", "src/react-app-env.d.ts"],
+	"exclude": ["dists", "node_modules", "src/main/**/*"]
+}

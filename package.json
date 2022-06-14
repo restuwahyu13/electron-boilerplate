@@ -1,0 +1,149 @@
+{
+  "name": "electron-boilerplate",
+  "version": "0.0.1",
+  "main": "./build/electron.js",
+  "homepage": "./",
+  "private": true,
+  "scripts": {
+    "electron:cleanup": "concurrently \"rimraf build\" \"rimraf dist\"",
+    "electron:compiler": "tsc -p tsconfig.electron.json",
+    "electron:react:start:browser": "react-scripts start",
+    "electron:react:start": "cross-env BROWSER=none react-scripts start",
+    "electron:react:build": "react-scripts build",
+    "electron:react:watch": "wait-on tcp:3000 && electron .",
+    "electron:build": "npm run electron:cleanup && tsc -p tsconfig.electron.json",
+    "electron:watch": "tsc -p tsconfig.electron.json -w",
+    "electron:start": "tsc -p tsconfig.electron.json -w && electron .",
+    "electron:release": "npm run electron:cleanup && npm run electron:react:build && npm run electron:compiler && electron-builder",
+    "electron:dev": "npm run electron:build && concurrently -C -p -k \"npm run electron:watch\" \"npm run electron:react:start\" \"npm run electron:react:watch\""
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.ts",
+          "**/*.tsx"
+        ],
+        "rules": {
+          "no-restricted-globals": 0,
+          "jsx-a11y/alt-text": 0,
+          "no-throw-literal": 0
+        },
+        "globals": {
+          "self": "writable"
+        }
+      }
+    ]
+  },
+  "author": "restuwahyu13",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restuwahyu13"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react boilerplate",
+    "reactjs electron",
+    "electron"
+  ],
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.6.4",
+    "@heroicons/react": "^1.0.6",
+    "electron-is-dev": "^2.0.0",
+    "electron-reload": "^2.0.0-alpha.1",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@types/autoprefixer": "^10.2.0",
+    "@types/concurrently": "^7.0.0",
+    "@types/electron": "^1.6.10",
+    "@types/electron-is-dev": "^1.1.1",
+    "@types/node": "^16.11.36",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.4",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/rimraf": "^3.0.2",
+    "@types/wait-on": "^5.3.1",
+    "autoprefixer": "^10.4.7",
+    "concurrently": "^7.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^18.2.4",
+    "electron-builder": "^23.0.3",
+    "electronmon": "^2.0.2",
+    "postcss": "^8.4.14",
+    "react-scripts": "5.0.1",
+    "rimraf": "^3.0.2",
+    "tailwindcss": "^3.0.24",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4",
+    "wait-on": "^6.0.1"
+  },
+  "build": {
+    "productName": "ElectronBoilerplate",
+    "appId": "com.electron.ElectronBoilerplate",
+    "compression": "maximum",
+    "nodeVersion": "^14",
+    "asar": true,
+    "asarUnpack": "**\\*.{node,dll}",
+    "files": [
+      "dist",
+      "build",
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
+  },
+  "devEngines": {
+    "node": ">=14",
+    "npm": ">=6"
+  },
+  "electronmon": {
+    "patterns": [
+      "!**/**",
+      "src/main/*"
+    ],
+    "logLevel": "quiet"
+  }
+}
