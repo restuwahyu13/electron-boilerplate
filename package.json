@@ -1,21 +1,38 @@
 {
   "name": "electron-boilerplate",
   "version": "0.0.1",
-  "main": "./build/electron.js",
   "homepage": "./",
+  "main": "./public/electron.js",
+  "description": "Electron boilerplate with React",
   "private": true,
   "scripts": {
-    "electron:cleanup": "concurrently \"rimraf build\" \"rimraf dist\"",
-    "electron:compiler": "tsc -p tsconfig.electron.json",
-    "electron:react:start:browser": "react-scripts start",
     "electron:react:start": "cross-env BROWSER=none react-scripts start",
-    "electron:react:build": "react-scripts build",
+    "electron:react:build": "react-scripts build && tsc -p tsconfig.electron.json --outDir build",
     "electron:react:watch": "wait-on tcp:3000 && electron .",
-    "electron:build": "npm run electron:cleanup && tsc -p tsconfig.electron.json",
-    "electron:watch": "tsc -p tsconfig.electron.json -w",
-    "electron:start": "tsc -p tsconfig.electron.json -w && electron .",
+    "electron:cleanup": "concurrently \"rimraf build\" \"rimraf dist\" \"rimraf public/**/*.{js,d.ts,js.map}\"",
+    "electron:compiler": "tsc -p tsconfig.electron.json --outDir public",
+    "electron:build": "npm run electron:cleanup && npm run electron:compiler",
+    "electron:watch": "tsc -p tsconfig.electron.json --outDir public -w",
+    "electron:start": "npm run electron:watch && electron .",
     "electron:release": "npm run electron:cleanup && npm run electron:react:build && npm run electron:compiler && electron-builder",
     "electron:dev": "npm run electron:build && concurrently -C -p -k \"npm run electron:watch\" \"npm run electron:react:start\" \"npm run electron:react:watch\""
+  },
+  "author": {
+    "name": "Restu Wahyu Saputra",
+    "email": "restuwahyu13@gmail.com",
+    "url": "https://github.com/restuwahyu13"
+  },
+  "maintainers": [
+    "Restu Wahyu Saputra"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restuwahyu13/electron-boilerplate"
+  },
+  "license": "UNLICENSE",
+  "engines": {
+    "node": "^14",
+    "npm": "^6"
   },
   "eslintConfig": {
     "extends": [
@@ -39,18 +56,6 @@
       }
     ]
   },
-  "author": "restuwahyu13",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/restuwahyu13"
-  },
-  "keywords": [
-    "react",
-    "reactjs",
-    "react boilerplate",
-    "reactjs electron",
-    "electron"
-  ],
   "browserslist": {
     "production": [
       ">0.2%",
@@ -64,23 +69,40 @@
     ]
   },
   "dependencies": {
-    "@headlessui/react": "^1.6.4",
-    "@heroicons/react": "^1.0.6",
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.20.7",
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.1",
     "electron-is-dev": "^2.0.0",
     "electron-reload": "^2.0.0-alpha.1",
+    "js-cookie": "^3.0.1",
+    "jwt-transform": "^0.0.3",
+    "node-disk-storage": "^0.0.6",
+    "qrcode.react": "^3.0.2",
     "react": "^18.1.0",
-    "react-dom": "^18.1.0"
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^5.3.3",
+    "socket.io-client": "^4.5.1"
   },
   "devDependencies": {
+    "@loadable/component": "^5.15.2",
+    "@types/antd": "^1.0.0",
     "@types/autoprefixer": "^10.2.0",
+    "@types/axios": "^0.14.0",
     "@types/concurrently": "^7.0.0",
+    "@types/dotenv": "^8.2.0",
     "@types/electron": "^1.6.10",
     "@types/electron-is-dev": "^1.1.1",
+    "@types/js-cookie": "^3.0.2",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/loadable__component": "^5.13.4",
     "@types/node": "^16.11.36",
+    "@types/qrcode.react": "^1.0.2",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.4",
     "@types/react-router-dom": "^5.3.3",
     "@types/rimraf": "^3.0.2",
+    "@types/socket.io-client": "^3.0.0",
     "@types/wait-on": "^5.3.1",
     "autoprefixer": "^10.4.7",
     "concurrently": "^7.2.0",
@@ -92,7 +114,6 @@
     "react-scripts": "5.0.1",
     "rimraf": "^3.0.2",
     "tailwindcss": "^3.0.24",
-    "tslib": "^2.4.0",
     "typescript": "^4.6.4",
     "wait-on": "^6.0.1"
   },
@@ -101,23 +122,12 @@
     "appId": "com.electron.ElectronBoilerplate",
     "compression": "maximum",
     "nodeVersion": "^14",
-    "asar": true,
-    "asarUnpack": "**\\*.{node,dll}",
+    "directories": {
+      "buildResources": "public"
+    },
     "files": [
-      "dist",
-      "build",
-      "**/*",
-      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
-      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
-      "!**/node_modules/*.d.ts",
-      "!**/node_modules/.bin",
-      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
-      "!.editorconfig",
-      "!**/._*",
-      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
-      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
-      "!**/{appveyor.yml,.travis.yml,circle.yml}",
-      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+      "build/**/*",
+      "node_modules/**/*"
     ],
     "mac": {
       "target": [
@@ -126,7 +136,8 @@
     },
     "linux": {
       "target": [
-        "AppImage"
+        "AppImage",
+        "deb"
       ]
     },
     "win": {
@@ -134,10 +145,6 @@
         "nsis"
       ]
     }
-  },
-  "devEngines": {
-    "node": ">=14",
-    "npm": ">=6"
   },
   "electronmon": {
     "patterns": [
