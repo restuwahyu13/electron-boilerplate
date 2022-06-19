@@ -4,7 +4,7 @@ Berikut adalah Electron React Boilerplate yang bisa anda gunakan baik untuk Prod
 
 # Run Application
 
-- Development Mode - npm run electron:dev
-- Production Build - npm run electron:build
+- Development Mode - npm run electron:start
+- Production Release - npm run electron:release
 
 ![](https://i.imgur.com/NlAqlbW.png)
