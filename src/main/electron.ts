@@ -33,9 +33,9 @@ class App {
      */
 
     App.win.setTitle('Electron Boilerplate')
+    App.win.setBounds({ width: screen.getPrimaryDisplay().size.width, height: screen.getPrimaryDisplay().size.height })
     App.win.webContents.setZoomLevel(1)
     App.win.webContents.setWebRTCIPHandlingPolicy('default_public_and_private_interfaces')
-    App.win.setBounds({ width: screen.getPrimaryDisplay().size.width, height: screen.getPrimaryDisplay().size.height })
 
     if (App.win.getMaxListeners() === 1000) App.win.webContents.setMaxListeners(1000)
     else App.win.webContents.setMaxListeners(1000)
