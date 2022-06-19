@@ -29,10 +29,10 @@
     "type": "git",
     "url": "https://github.com/restuwahyu13/electron-boilerplate"
   },
-  "license": "UNLICENSE",
+  "license": "MIT",
   "engines": {
-    "node": "^14",
-    "npm": "^6"
+    "node": ">=14",
+    "npm": ">=6"
   },
   "eslintConfig": {
     "extends": [
