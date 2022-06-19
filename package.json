@@ -13,9 +13,8 @@
     "electron:compiler": "tsc -p tsconfig.electron.json --outDir public",
     "electron:build": "npm run electron:cleanup && npm run electron:compiler",
     "electron:watch": "tsc -p tsconfig.electron.json --outDir public -w",
-    "electron:start": "npm run electron:watch && electron .",
     "electron:release": "npm run electron:cleanup && npm run electron:react:build && npm run electron:compiler && electron-builder",
-    "electron:dev": "npm run electron:build && concurrently -C -p -k \"npm run electron:watch\" \"npm run electron:react:start\" \"npm run electron:react:watch\""
+    "electron:start": "cross-env ELECTRON_ENABLE_LOGGING=true npm run electron:build && concurrently -C -p -k \"npm run electron:watch\" \"npm run electron:react:start\" \"npm run electron:react:watch\""
   },
   "author": {
     "name": "Restu Wahyu Saputra",
@@ -87,7 +86,6 @@
     "cross-env": "^7.0.3",
     "electron": "^18.2.4",
     "electron-builder": "^23.0.3",
-    "electronmon": "^2.0.2",
     "postcss": "^8.4.14",
     "react-scripts": "5.0.1",
     "rimraf": "^3.0.2",
@@ -99,7 +97,7 @@
     "productName": "ElectronBoilerplate",
     "appId": "com.electron.ElectronBoilerplate",
     "compression": "maximum",
-    "nodeVersion": "^14",
+    "nodeVersion": ">=14",
     "directories": {
       "buildResources": "public"
     },
@@ -123,12 +121,5 @@
         "nsis"
       ]
     }
-  },
-  "electronmon": {
-    "patterns": [
-      "!**/**",
-      "src/main/*"
-    ],
-    "logLevel": "quiet"
   }
 }
