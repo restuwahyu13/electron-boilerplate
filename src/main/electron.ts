@@ -7,19 +7,20 @@ import url from 'url'
 import { UsersSubscriber } from './subscribers/sub.users'
 
 class App {
-  private static host: string = 'http://localhost:3000'
-  private static rootPath: string = url.format({
+  private static hostDev: string = 'http://localhost:3000'
+  private static hostProd: string = url.format({
     pathname: join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   })
   private static frameRate: number = 60
+  private static nds: InstanceType<typeof NodeDiskStorage> = new NodeDiskStorage()
   private static win: InstanceType<typeof BrowserWindow>
-  private static isDev: boolean = !app.isPackaged ? false : true
+  private static isProd: boolean = app.isPackaged ? true : false
 
   private static runWindow(): InstanceType<typeof BrowserWindow> {
     App.win = new BrowserWindow({
-      frame: App.isDev ? true : false,
+      frame: App.isProd ? false : true,
       webPreferences: {
         nodeIntegration: true,
         nodeIntegrationInWorker: true,
@@ -34,22 +35,25 @@ class App {
     App.win.setTitle('Electron Boilerplate')
     App.win.webContents.setZoomLevel(1)
     App.win.webContents.setWebRTCIPHandlingPolicy('default_public_and_private_interfaces')
+    App.win.setBounds({ width: screen.getPrimaryDisplay().size.width, height: screen.getPrimaryDisplay().size.height })
 
     if (App.win.getMaxListeners() === 1000) App.win.webContents.setMaxListeners(1000)
     else App.win.webContents.setMaxListeners(1000)
 
-    if (App.isDev) {
-      App.win.loadURL(App.host)
-      App.win.setBounds({ width: screen.getPrimaryDisplay().size.width, height: screen.getPrimaryDisplay().size.height })
+    if (App.isProd) {
+      App.win.loadURL(App.hostProd)
+      App.win.webContents.setFrameRate(App.frameRate)
+    } else {
+      App.win.loadURL(App.hostDev)
       App.win.webContents.openDevTools({ mode: 'detach' })
       electronReload(__dirname, {
         electron: join(process.cwd(), 'node_modules', '.bin', 'electron'),
+        cwd: join(process.cwd()),
+        ignored: ['dist', 'build', 'node_modules'],
+        usePolling: true,
+        forceHardReset: true,
         hardResetMethod: 'exit'
       })
-    } else {
-      App.win.loadURL(App.rootPath)
-      App.win.setBounds({ width: screen.getPrimaryDisplay().size.width, height: screen.getPrimaryDisplay().size.height })
-      App.win.webContents.setFrameRate(App.frameRate)
     }
 
     return App.win

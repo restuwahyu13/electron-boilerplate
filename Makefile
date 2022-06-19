@@ -1,11 +1,14 @@
 ################################
 # APPLICATION COMMAND
 ################################
-dev:
-	npm run electron:dev
+elec-start:
+	npm run electron:start
 
-build-electron:
+elec-build:
 	npm run electron:release
 
-build-react:
+react-start:
+	npm run electron:react:start
+
+react-build:
 	npm run electron:react:build
